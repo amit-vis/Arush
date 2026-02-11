@@ -1,121 +1,145 @@
-// import React from 'react';
-// import Image from 'next/image';
+"use client";
 
-// const AboutSection = () => {
-//   return (
-//     <section className="w-full py-16 bg-[#FBF7F2] text-[#1F1F1F]">
-//       <div className="container mx-auto px-6 md:px-12">
-//         <div className="flex flex-col md:flex-row items-center gap-12">
-          
-//           {/* Left Side: Text Content */}
-//           <div className="md:w-1/2 space-y-6">
-//             <h4 className="text-[#E6B65C] font-bold uppercase tracking-widest text-sm">
-//               Our Story
-//             </h4>
-//             <h2 className="text-3xl md:text-4xl font-heading font-bold leading-tight">
-//               Bringing Pure Nutrition to <br />
-//               <span className="text-[#E6B65C]">Ghoordang & Satna</span>
-//             </h2>
-            
-//             <p className="text-[#6B6B6B] leading-relaxed text-lg">
-//               "Maine hamesha dekha hai ki market mein milne wale ande aksar gande aur purane hote hain. 
-//               Humein pata hi nahi chalta ki hum kya kha rahe hain. 
-//               Mera sapna tha ek aisa brand banane ka jo 100% <strong>Transparent</strong> aur <strong>Hygienic</strong> ho."
-//             </p>
-
-//             <p className="text-[#6B6B6B] leading-relaxed text-lg">
-//               Aaj, <strong>Arush Eggs & Minerals</strong> ke zariye hum 
-//               UV-Sanitized aur Date-Stamped ande seedha farm se aapke ghar tak pahunchate hain.
-//             </p>
-
-//             <div className="pt-4 border-l-4 border-[#E6B65C] pl-4 mt-6">
-//               <h3 className="text-xl font-bold font-heading">Amit Vishwakarma</h3>
-//               <p className="text-sm text-[#6B6B6B]">Founder & Owner</p>
-//             </div>
-//           </div>
-
-//           {/* Right Side: Image (Placeholder for now) */}
-//           <div className="md:w-1/2 relative">
-//             <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
-//               {/* Yahan Amit ji ki ya Farm ki photo lagana */}
-//               <div className="absolute inset-0 bg-[#E6B65C]/20 z-10"></div> {/* Golden Overlay */}
-//               <Image 
-//                 src="/amit-founder.jpg" // Apni image ka path yahan dena
-//                 alt="Amit Vishwakarma - Founder of Arush"
-//                 fill
-//                 className="object-cover"
-//               />
-//             </div>
-            
-//             {/* Location Badge */}
-//             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg z-20 hidden md:block">
-//               <div className="flex items-center gap-3">
-//                 <div className="bg-[#E6B65C] p-2 rounded-full text-white">
-//                   📍
-//                 </div>
-//                 <div>
-//                   <p className="text-xs text-gray-500 uppercase font-bold">Headquarters</p>
-//                   <p className="font-bold text-[#1F1F1F]">Ghoordang, Satna (M.P.)</p>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default AboutSection;
-
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const AboutTeaser = () => {
+// Types define karte hain taaki error na aaye
+interface SectionContent {
+  heading: { en: React.ReactNode; hi: React.ReactNode };
+  subHeading: { en: string; hi: string };
+  story: { en: string; hi: string };
+  btnText: { en: string; hi: string };
+}
+
+const AboutSection: React.FC = () => {
+  // 1. State with Strict Typing
+  const [lang, setLang] = useState<'en' | 'hi'>('en');
+
+  // 2. Data Object with TypeScript Interface
+  const content: SectionContent = {
+    heading: {
+      en: <>Bringing Pure Nutrition to <br/><span className="text-[#E6B65C]">Your Doorstep.</span></>,
+      hi: <>शुद्ध पोषण, <br/><span className="text-[#E6B65C]">सीधा आपके घर तक।</span></>
+    },
+    subHeading: {
+        en: "OUR VISION",
+        hi: "हमारा विजन"
+    },
+    story: {
+      en: "We realized that finding clean, fresh eggs in the market was a struggle. Most were unhygienic or old. That’s why we started Arush — with a simple promise: to deliver UV-Sanitized, farm-fresh nutrition that you can trust blindly.",
+      hi: "हमने देखा कि मार्केट में साफ और ताजे अंडे मिलना मुश्किल था। ज्यादातर अंडे अस्वच्छ या पुराने होते थे। इसीलिए हमने अरुष (Arush) की शुरुआत की — एक सरल वादे के साथ: आप तक UV-Sanitized और सीधे फार्म से ताज़ा पोषण पहुँचाना, जिस पर आप आँख बंद करके भरोसा कर सकें।"
+    },
+    btnText: {
+      en: "Read Our Full Story",
+      hi: "पूरी कहानी पढ़ें"
+    }
+  };
+
   return (
-    <section className="w-full py-16 bg-white">
+    <section className="w-full py-20 bg-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row items-center gap-12">
+        <div className="flex flex-col md:flex-row items-center gap-16">
           
-          {/* Left Side: Founder Image */}
-          <div className="md:w-1/2 relative order-2 md:order-1">
-            <div className="relative w-full h-[380px] rounded-2xl overflow-hidden shadow-lg border-4 border-[#FBF7F2]">
+          {/* Left Side: Founder Image with Motion */}
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="md:w-1/2 relative order-2 md:order-1"
+          >
+            <div className="relative w-full h-[450px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-[#FBF7F2]">
               <Image 
-                src="/images/amit-founder-professional.jpg" 
-                alt="Amit Vishwakarma - Arush Founder"
+                src="/about/myphoto.png" 
+                alt="Amit Vishwakarma"
                 fill
-                className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                className="object-cover object-top hover:scale-110 transition-transform duration-[1.5s]"
               />
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             </div>
-            {/* Floating Badge */}
-            <div className="absolute bottom-4 right-4 bg-[#E6B65C] text-white px-4 py-2 rounded-lg shadow-md">
-              <p className="text-xs font-bold uppercase tracking-wider">Satna's Own Brand</p>
-            </div>
-          </div>
+            
+            {/* Badge */}
+            <motion.div 
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ delay: 0.5, type: 'spring' }}
+              className="absolute -bottom-6 -right-4 md:right-4 bg-[#E6B65C] text-[#1F1F1F] px-6 py-4 rounded-2xl shadow-xl z-10"
+            >
+              <p className="text-xs font-black uppercase tracking-widest text-center">
+                Satna's Own <br/> Brand
+              </p>
+            </motion.div>
+          </motion.div>
 
           {/* Right Side: Text Content */}
-          <div className="md:w-1/2 space-y-6 order-1 md:order-2">
-            <h4 className="text-[#E6B65C] font-bold uppercase tracking-widest text-sm">
-              Our Vision
-            </h4>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-[#1F1F1F] leading-tight">
-              Bringing Pure Nutrition to <br/>
-              <span className="text-[#E6B65C]">Your Doorstep.</span>
-            </h2>
+          <div className="md:w-1/2 space-y-8 order-1 md:order-2">
             
-            <p className="text-[#6B6B6B] text-lg leading-relaxed">
-              "We realized that finding clean, fresh eggs in the market was a struggle. Most were unhygienic or old. 
-              That’s why we started <strong>Arush</strong> — with a simple promise: to deliver <strong>UV-Sanitized</strong>, farm-fresh nutrition that you can trust blindly."
-            </p>
+            {/* HEADER WITH LANGUAGE TOGGLE */}
+            <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+                <h4 className="text-[#E6B65C] font-bold uppercase tracking-[0.2em] text-sm">
+                  {content.subHeading[lang]}
+                </h4>
 
-            <div className="flex items-center gap-4 pt-2">
-              <Link href="/about" className="group flex items-center gap-2 text-[#1F1F1F] font-bold hover:text-[#E6B65C] transition-colors">
-                Read Our Story
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </Link>
+                {/* --- TOGGLE BUTTON --- */}
+                <div className="flex items-center gap-1 bg-[#F2EFE9] rounded-full p-1 border border-gray-200 shadow-inner">
+                    <button 
+                        onClick={() => setLang('en')}
+                        className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${
+                            lang === 'en' 
+                            ? 'bg-[#1F1F1F] text-white shadow-lg' 
+                            : 'text-gray-400 hover:text-[#1F1F1F]'
+                        }`}
+                    >
+                        EN
+                    </button>
+                    <button 
+                        onClick={() => setLang('hi')}
+                        className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${
+                            lang === 'hi' 
+                            ? 'bg-[#E6B65C] text-[#1F1F1F] shadow-lg' 
+                            : 'text-gray-400 hover:text-[#1F1F1F]'
+                        }`}
+                    >
+                        हिन्दी
+                    </button>
+                </div>
             </div>
+
+            {/* DYNAMIC CONTENT AREA */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={lang}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="space-y-6"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-[#1F1F1F] leading-tight">
+                  {content.heading[lang]}
+                </h2>
+                
+                <p className="text-[#6B6B6B] text-lg md:text-xl leading-relaxed font-light">
+                  <span className="text-[#E6B65C] text-4xl leading-none mr-2 font-serif inline-block">“</span>
+                  {content.story[lang]}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* CTA Button */}
+            <motion.div 
+              whileHover={{ x: 10 }}
+              className="flex items-center gap-4 pt-4"
+            >
+              <a href="/about" className="group flex items-center gap-3 text-[#1F1F1F] text-lg font-black hover:text-[#E6B65C] transition-colors uppercase tracking-wider">
+                {content.btnText[lang]}
+                <span className="bg-[#1F1F1F] group-hover:bg-[#E6B65C] text-white p-2 rounded-full transition-colors group-hover:rotate-45 duration-300">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </a>
+            </motion.div>
           </div>
 
         </div>
@@ -124,4 +148,4 @@ const AboutTeaser = () => {
   );
 };
 
-export default AboutTeaser;
+export default AboutSection;

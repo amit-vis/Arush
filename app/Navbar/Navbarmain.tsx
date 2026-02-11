@@ -62,6 +62,14 @@ export const Navbar = () => {
     if (isMobileNav) setIsMobileNav(false);
   };
 
+  const navItems = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Why Arush?", path: "/why-arush" }, // Yahan humne specific route diya
+  { name: "Shop", path: "/shop" },
+  { name: "Contact", path: "/contact" },
+];
+
   return (
     <section className="w-full sticky top-0 z-50">
       <TopBar />
@@ -78,14 +86,17 @@ export const Navbar = () => {
         {/* Desktop Menu */}
         <div className="md:flex hidden items-center">
           <ul className="flex space-x-8">
-            {["Home", "About", "Why Arush?", "Shop", "Contact"].map((item) => (
-              <li key={item} className="relative group">
-                <Link href="#" className="text-[#1F1F1F] font-heading font-medium hover:text-[#E6B65C] transition-colors">
-                  {item}
-                </Link>
-                <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-[#E6B65C] transition-all duration-300 group-hover:w-full"></span>
-              </li>
-            ))}
+            {navItems.map((item) => (
+  <li key={item.name} className="relative group">
+    <Link 
+      href={item.path} // Yahan ab dynamic path aayega
+      className="text-[#1F1F1F] font-heading font-medium hover:text-[#E6B65C] transition-colors"
+    >
+      {item.name}
+    </Link>
+    <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-[#E6B65C] transition-all duration-300 group-hover:w-full"></span>
+  </li>
+))}
           </ul>
         </div>
 
@@ -125,11 +136,11 @@ export const Navbar = () => {
             className="lg:hidden rounded-lg block absolute bg-white p-4 right-2 top-15 shadow-2xl"
           >
             <ul className="flex flex-col space-x-8 gap-2">
-              {["Home", "About", "Why Arush?", "Shop", "Contact"].map(
-                (item) => (
-                  <li key={item} className="relative group">
-                    <Link href="#" className="text-[#1F1F1F] font-heading font-medium hover:text-[#E6B65C] transition-colors">
-                      {item}
+              {navItems.map(
+                (item, index) => (
+                  <li key={index} className="relative group">
+                    <Link href={item.path} className="text-[#1F1F1F] font-heading font-medium hover:text-[#E6B65C] transition-colors">
+                      {item.name}
                     </Link>
                     <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-[#E6B65C] transition-all duration-300 group-hover:w-full"></span>
                   </li>
