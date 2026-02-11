@@ -66,7 +66,7 @@ export const Navbar = () => {
     <section className="w-full sticky top-0 z-50">
       <TopBar />
 
-      <nav className="flex relative justify-between items-center w-full bg-white shadow-lg py-2 lg:px-8 md:px-4 px-2 sticky top-0 z-50">
+      <nav className="flex relative justify-between items-center w-full bg-brand-cream/90 border-b border-brand-gold/20 shadow-lg py-2 md:px-4 px-2 sticky top-0 z-50 backdrop-blur-md">
         <div className="flex-shrink-0">
           <Link href="/">
             <h1 className="lg:text-[32px] md:text-[20px] font-bold font-heading text-[#E6B65C]">

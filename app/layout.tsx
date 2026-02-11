@@ -2,7 +2,14 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./Navbar/Navbarmain";
-import { Footer } from "./Footer/footer";
+import  Footer  from "./Footer/footer";
+import { Courier_Prime } from 'next/font/google';
+
+const courier = Courier_Prime({ 
+  weight: '700', 
+  subsets: ['latin'],
+  variable: '--font-courier' // Custom CSS variable
+});
 
 const fontHeading = Plus_Jakarta_Sans({ 
   subsets: ["latin"],
@@ -28,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fontHeading.variable} ${fontBody.variable} antialiased`}
+        className={`${fontHeading.variable} ${fontBody.variable} ${courier.variable} antialiased`}
       >
         <Navbar/>
         {children}
