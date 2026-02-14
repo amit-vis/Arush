@@ -20,7 +20,7 @@ const AboutSection: React.FC = () => {
   const content: SectionContent = {
     heading: {
       en: <>Bringing Pure Nutrition to <br/><span className="text-[#E6B65C]">Your Doorstep.</span></>,
-      hi: <>शुद्ध पोषण, <br/><span className="text-[#E6B65C]">सीधा आपके घर तक।</span></>
+      hi: <>शुद्ध पोषण, <br/><span className="text-[#E6B65C] pt-2">सीधा आपके घर तक।</span></>
     },
     subHeading: {
         en: "OUR VISION",
@@ -49,7 +49,7 @@ const AboutSection: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="md:w-1/2 relative order-2 md:order-1"
           >
-            <div className="relative w-full h-[450px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-[#FBF7F2]">
+            <div className="relative md:w-full w-[370px] h-[450px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-[#FBF7F2]">
               <Image 
                 src="/about/myphoto.png" 
                 alt="Amit Vishwakarma"
@@ -65,7 +65,7 @@ const AboutSection: React.FC = () => {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ delay: 0.5, type: 'spring' }}
-              className="absolute -bottom-6 -right-4 md:right-4 bg-[#E6B65C] text-[#1F1F1F] px-6 py-4 rounded-2xl shadow-xl z-10"
+              className="absolute -bottom-6 -right-0 md:right-4 bg-[#E6B65C] text-[#1F1F1F] px-6 py-4 rounded-2xl shadow-xl z-10"
             >
               <p className="text-xs font-black uppercase tracking-widest text-center">
                 Satna's Own <br/> Brand
@@ -108,25 +108,31 @@ const AboutSection: React.FC = () => {
             </div>
 
             {/* DYNAMIC CONTENT AREA */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={lang}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="space-y-6"
-              >
-                <h2 className="text-4xl md:text-5xl font-bold text-[#1F1F1F] leading-tight">
-                  {content.heading[lang]}
-                </h2>
-                
-                <p className="text-[#6B6B6B] text-lg md:text-xl leading-relaxed font-light">
-                  <span className="text-[#E6B65C] text-4xl leading-none mr-2 font-serif inline-block">“</span>
-                  {content.story[lang]}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+           <AnimatePresence mode="wait">
+  <motion.div
+    key={lang}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.4 }}
+    className="space-y-6"
+  >
+    {/* Heading Fix: Added dynamic leading based on language */}
+    <h2 className={`text-4xl md:text-5xl font-bold text-[#1F1F1F] ${
+      lang === 'hi' ? 'leading-[1.4] py-1' : 'leading-tight'
+    }`}>
+      {content.heading[lang]}
+    </h2>
+    
+    {/* Story Paragraph Fix: Adjusted line-height for Hindi readability */}
+    <p className={`text-[#6B6B6B] text-lg md:text-xl font-light ${
+      lang === 'hi' ? 'leading-[1.8] mt-4' : 'leading-relaxed'
+    }`}>
+      <span className="text-[#E6B65C] text-4xl leading-none mr-2 font-serif inline-block">“</span>
+      {content.story[lang]}
+    </p>
+  </motion.div>
+</AnimatePresence>
 
             {/* CTA Button */}
             <motion.div 

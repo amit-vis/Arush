@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLeaf, FaRecycle, FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
 
 // TypeScript Interfaces for safety
 interface Step {
@@ -102,14 +103,15 @@ export default function SustainabilitySection() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#3A7D44]/40 to-transparent"></div>
             </div>
             
-            {/* Floating Badge */}
+            {/* Floating Badge - Hindi Spacing Adjusted */}
             <motion.div 
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-6 bg-[#3A7D44] text-white p-6 rounded-3xl shadow-xl z-10 hidden md:block"
+              className={`absolute -top-6 -right-6 bg-[#3A7D44] text-white rounded-3xl shadow-xl z-10 hidden md:block 
+                ${lang === 'hi' ? 'p-7 py-8' : 'p-6'}`}
             >
               <FaRecycle className="text-3xl mb-2" />
-              <p className="font-black text-sm leading-tight uppercase tracking-tighter">
+              <p className={`font-black text-sm uppercase tracking-tighter ${lang === 'hi' ? 'leading-relaxed' : 'leading-tight'}`}>
                   {lang === 'en' ? (
                     <>100% Zero <br/> Waste Process</>
                   ) : (
@@ -156,27 +158,32 @@ export default function SustainabilitySection() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4 }}
               >
-                <h2 className="text-5xl md:text-7xl font-black text-[#1F1F1F] leading-[0.9] mb-8 tracking-tighter">
+                {/* Heading Fix: Dynamic Leading added for Hindi */}
+                <h2 className={`text-5xl md:text-7xl font-black text-[#1F1F1F] mb-8 tracking-tighter 
+                  ${lang === 'hi' ? 'leading-[1.3] py-2' : 'leading-[0.9]'}`}>
                   {content.heading[lang].part1}<br />
                   <span className="text-[#3A7D44] italic font-serif lowercase">{content.heading[lang].part2}</span>
                 </h2>
 
-                <p className="text-[#6B6B6B] text-lg md:text-xl mb-10 leading-relaxed font-medium">
+                <p className={`text-[#6B6B6B] text-lg md:text-xl mb-10 font-medium 
+                  ${lang === 'hi' ? 'leading-[1.8]' : 'leading-relaxed'}`}>
                    {content.description[lang]}
                 </p>
 
-                {/* Process Steps */}
-                <div className="grid grid-cols-1 gap-6 mb-12">
+                {/* Process Steps - Hindi Overlap Fix */}
+                <div className="grid grid-cols-1 gap-8 mb-12">
                   {content.steps.map((step) => (
                       <div key={step.id} className="flex items-start gap-5 group">
                         <div className="w-12 h-12 rounded-2xl bg-[#3A7D44]/10 group-hover:bg-[#3A7D44] flex items-center justify-center text-[#3A7D44] group-hover:text-white shrink-0 transition-colors duration-300 shadow-sm font-black text-lg">
                           {step.id}
                         </div>
-                        <div>
-                          <h4 className="font-black text-[#1F1F1F] uppercase text-sm tracking-wide mb-1 transition-colors group-hover:text-[#3A7D44]">
+                        <div className={`${lang === 'hi' ? 'space-y-1' : ''}`}>
+                          <h4 className={`font-black text-[#1F1F1F] uppercase text-sm tracking-wide transition-colors group-hover:text-[#3A7D44] 
+                            ${lang === 'hi' ? 'leading-relaxed' : 'mb-1'}`}>
                             {step.title[lang]}
                           </h4>
-                          <p className="text-[#6B6B6B] text-sm font-semibold leading-relaxed">
+                          <p className={`text-[#6B6B6B] text-sm font-semibold 
+                            ${lang === 'hi' ? 'leading-[1.7]' : 'leading-relaxed'}`}>
                             {step.desc[lang]}
                           </p>
                         </div>
@@ -185,7 +192,7 @@ export default function SustainabilitySection() {
                 </div>
               </motion.div>
             </AnimatePresence>
-
+                  <Link href="/why-arush">
             <motion.button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -193,6 +200,7 @@ export default function SustainabilitySection() {
             >
               {content.cta[lang]} <FaArrowRight className="group-hover:translate-x-2 transition-transform duration-300" />
             </motion.button>
+            </Link>
           </div>
 
         </div>

@@ -114,10 +114,11 @@ export default function HomePageMain() {
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.4 }}
             >
-              <h1 className="font-heading text-[#1F1F1F] text-5xl lg:text-7xl font-bold leading-[1.1] mb-6">
-                {t.heading[lang].line1} <br />
-                <span className="text-[#E6B65C]">{t.heading[lang].line2}</span>
-              </h1>
+              <h1 className={`font-heading text-[#1F1F1F] text-5xl lg:text-7xl font-bold mb-6 
+  ${lang === 'hi' ? 'leading-[1.4] py-2' : 'leading-[1.1]'}`}>
+  {t.heading[lang].line1} <br />
+  <span className="text-[#E6B65C]">{t.heading[lang].line2}</span>
+</h1>
 
               <p className="font-sans text-[#6B6B6B] text-lg md:text-2xl leading-relaxed max-w-lg mb-10 font-medium">
                 {t.description[lang]}

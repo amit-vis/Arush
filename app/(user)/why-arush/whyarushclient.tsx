@@ -18,7 +18,7 @@ interface WhyArushContent {
   closing: { title: string; desc: string; btn: string };
 }
 
-const WhyArushPage: React.FC = () => {
+const WhyArushClient: React.FC = () => {
   const [lang, setLang] = useState<'en' | 'hi'>('en');
 
   const content: Record<'en' | 'hi', WhyArushContent> = {
@@ -115,7 +115,7 @@ const WhyArushPage: React.FC = () => {
       {/* 1. HERO SECTION */}
       <section className="relative w-full h-[60vh] flex items-center justify-center bg-[#1F1F1F]">
         <div className="absolute inset-0 opacity-30">
-           <Image src="/images/lab-clean-bg.jpg" alt="Lab" fill className="object-cover" />
+           <Image src="/whyArush/lab_cleaning.png" alt="Lab" fill className="object-cover" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <motion.h4 
@@ -228,4 +228,4 @@ const WhyArushPage: React.FC = () => {
   );
 };
 
-export default WhyArushPage;
+export default WhyArushClient;
